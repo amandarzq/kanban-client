@@ -1,14 +1,15 @@
 
 <template>
+
   <div class="child-card" v-bind:class="item.importance">
      <h3> {{ item.title }} </h3>
      <p class="updated-at">{{ item.updatedAt }}</p>
       <p class="card-user-name">By: {{ item.User.name }}</p>
       <div class="actions">
-          <a class="patch" href="#" @click="patchTask(back, item.id)"> back </a>
-          <a class="del" href="#" @click="deleteTask(item.id)">delete</a>
+          <a class="patch" href="#" @click="patchTask(back, item.id)"> < </a>
           <a class="edit" href="#" @click="editTask(item.id)">edit</a>
-          <a class="patch" href="#" @click="patchTask(next, item.id)"> next </a>
+           <a class="del" href="#" @click="deleteTask(item.id)">delete</a>
+          <a class="patch" href="#" @click="patchTask(next, item.id)"> > </a>
       </div>
   </div>
 </template>

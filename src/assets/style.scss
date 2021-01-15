@@ -74,15 +74,22 @@ nav {
 }
 .task-cards {
   position: relative;
-  max-height: 500px;
+  max-height: 570px;
 }
 
 .category-section {
   width: 300px;
   color: white;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
   &:hover {
     position: relative;
     top: -6px;
+  }
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -97,6 +104,7 @@ nav {
 .child-card {
   margin-bottom: 5px;
   width: 300px;
+  padding-left: 15px;
   background-color: rgb(19, 18, 18);
   &:hover {
     position: relative;
@@ -119,7 +127,13 @@ nav {
       }
       a.del:hover {
         color: #f89494;
-        text-shadow: 0 0 5px #800202;
+        text-shadow: 0 0 5px #ff0000;
+      }
+      a.patch {
+        color: #b90b79;
+        &:hover {
+          text-shadow: 0 0 5px #ffcbdc;
+        }
       }
     }
   }
@@ -151,6 +165,7 @@ nav {
 
 h3 {
   margin-top: 5px;
+  margin-left: 7px;
   font-size: 1.2rem;
   border-radius: 5px;
 }
@@ -166,7 +181,7 @@ h2 {
 }
 .child-card {
   p {
-    margin: 5px;
+    margin: 5px 7px;
     font-size: 0.9rem;
   }
   .updated-at {
@@ -259,3 +274,10 @@ h2 {
     margin-right: 20px;
   }
 }
+
+// .child-card {
+//   background-color: #eee;
+//   width: 200px;
+//   height: 100px;
+//   overflow-y: scroll;
+// }

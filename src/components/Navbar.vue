@@ -1,5 +1,4 @@
 <template>
-  <!-- LOGIN PAGE -->
 
    <nav class="navbar">
     <div class="container-fluid">
@@ -13,7 +12,6 @@
       </div>
     </div>
   </nav>
-
     
 </template>
 
