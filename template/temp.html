@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanban</title>
+  <!-- STYLE -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+<div id="app">
+
+  <nav class="navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">KANBAN</a>
+      <div class="navbar-right">
+        <a class="navlink" href="#" v-if="halaman == 'login'" v-on:click="changePage('register')" >REGISTER</a>
+        <a class="navlink" href="#" v-if="halaman == 'register'" v-on:click="changePage('login')">LOGIN</a>
+        <a class="navlink" href="#" v-if="halaman == 'main'" @click="showAddModal">ADD TASK</a>
+        <a class="navlink" href="#" v-if="halaman == 'add'" v-on:click="changePage('main')">BACK</a>
+        <a class="navlink" href="#" v-if="halaman == 'main' || halaman == 'add'" v-on:click="logout">LOGOUT</a>
+      </div>
+    </div>
+  </nav>
+
+
+<!-- ISI -->
+  <div class="kanban-page container" v-if="halaman == 'main'">
+     
+    <!-- BACKLOG -->
+    
+    <div class="task-cards">
+      <div class="backlog category-section">
+        <div class="row">
+          <div class="section-header">
+            <h2>BACKLOG</h2>
+          </div>
+
+          <div v-for="(item, id) in filterBacklog" :key="id" class="child-card" v-bind:class="item.importance">
+            <h3> {{ item.title }} </h3>
+            <p class="user-name">{{ item.name }}</p>
+            <p class="updated-at">{{ item.updatedAt }}</p>
+            <div class="actions">
+              <a class="patch" href="#" @click="patchTask('done', item.id)">done</a>
+              <a class="del" href="#" @click="deleteTask(item.id)">delete</a>
+              <a class="edit" href="#" @click="editTask(item.id)">edit</a>
+              <a class="patch" href="#" @click="patchTask('todo', item.id)">todo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+    
+      <!-- TODO -->
+
+      <div class="todo category-section">
+        <div class="row">
+          <div class="section-header">
+            <h2>TODO</h2>
+          </div>
+          <div v-for="(item, id) in filterTodo" :key="id" class="child-card" v-bind:class="item.importance">
+            <h3> {{ item.title }} </h3>
+            <p class="user-name">{{ item.name }}</p>
+            <p class="updated-at">{{ item.updatedAt }}</p>
+            <div class="actions">
+              <a class="patch" href="#" @click="patchTask('backlog', item.id)">backlog</a>
+              <a class="del" href="#" @click="deleteTask(item.id)">delete</a>
+              <a class="edit" href="#" @click="editTask(item.id)">edit</a>
+              <a class="patch" href="#" @click="patchTask('doing', item.id)">doing</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DOING -->
+
+      <div class="done category-section">
+        <div class="row">
+          <div class="section-header">
+            <h2>DOING</h2>
+          </div>
+          <div v-for="(item, id) in filterDoing" :key="id" class="child-card" v-bind:class="item.importance">
+            <h3> {{ item.title }} </h3>
+            <p class="user-name">{{ item.name }}</p>
+            <p class="updated-at">{{ item.updatedAt }}</p>
+            <div class="actions">
+              <a class="patch" href="#" @click="patchTask('todo', item.id)">todo</a>
+              <a class="del" href="#" @click="deleteTask(item.id)">delete</a>
+              <a class="edit" href="#" @click="editTask(item.id)">edit</a>
+              <a class="patch" href="#" @click="patchTask('done', item.id)">done</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <!-- DONE -->
+      <div class="completed category-section">
+        <div class="row">
+          <div class="section-header">
+            <h2>DONE</h2>
+          </div>
+          <div v-for="(item, id) in filterDone" :key="id" class="child-card" v-bind:class="item.importance">
+            <h3> {{ item.title }} </h3>
+            <p class="user-name">{{ item.name }}</p>
+            <p class="updated-at">{{ item.updatedAt }}</p>
+            <div class="actions">
+              <a class="patch" href="#" @click="patchTask('doing', item.id)">doing</a>
+              <a class="del" href="#" @click="deleteTask(item.id)">delete</a>
+              <a class="edit" href="#" @click="editTask(item.id)">edit</a>
+              <a class="patch" href="#" @click="patchTask('backlog', item.id)">backlog</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+   
+    <!-- MODAL EDIT TASK -->
+    <div class="modal" tabindex="-1" v-bind:class="{ 'd-block' : modalShow }">
+      <div class="modal-dialog">
+        <div class="modal-content bg-transparent">
+         <!-- EDIT FORM --> 
+            <div class="editContainer">
+              <form action="#" @submit.prevent='putTask(userTask.id)'>
+                <div class="mb-3">
+                  <label for="edit-title" class="form-label">Task Name</label>
+                  <input  type="text" class="form-control edit-title" id="add-title" placeholder="Your task" v-model="userTask.title">
+                </div>
+                <div class="mb-3">
+                  <label for="input-category" class="form-label">Category</label>
+                  <select class="form-select" aria-label="Default select example" v-model="userTask.category" id="input-category">
+                    <option selected value="backlog">Backlog</option>
+                    <option value="todo">Todo</option>
+                    <option value="doing">Doing</option>
+                    <option value="done">Done</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="input-importance" class="form-label">Emergency</label>
+                  <select class="form-select" aria-label="Default select example" v-model="userTask.importance" id="input-importance">
+                    <option value="not-important">Not-important</option>
+                    <option value="urgent">Urgent</option>
+                    <option value="important">Important</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-outline-info">Submit</button>
+                <button @click="hideEditForm" class="btn btn-outline-warning">Cancel</button>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- MODAL ADD TASK -->
+    <div class="modal" tabindex="-1" v-bind:class="{ 'd-block' : showAddForm }">
+      <div class="modal-dialog">
+        <div class="modal-content bg-transparent">
+          <!-- EDIT FORM --> 
+          <div class="add-task-page container">
+            <form action="#">
+              <div class="mb-3">
+                <label for="add-title" class="form-label">Task Name</label>
+                <input  type="text" class="form-control add-title" id="add-title" placeholder="Your task" v-model="userTask.title">
+              </div>
+              <div class="mb-3">
+                <label for="input-category" class="form-label">Category</label>
+                <select class="form-select" aria-label="Default select example" v-model="userTask.category" id="input-category">
+                  <option selected value="backlog">Backlog</option>
+                  <option value="todo">Todo</option>
+                  <option value="doing">Doing</option>
+                  <option value="done">Done</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="input-importance" class="form-label">Emergency</label>
+                <select class="form-select" aria-label="Default select example" v-model="userTask.importance" id="input-importance">
+                  <option value="not-important">Not-important</option>
+                  <option value="urgent">Urgent</option>
+                  <option value="important">Important</option>
+                </select>
+              </div>
+              <button @click="addTask" type="submit" class="btn btn-outline-info">Submit</button>
+              <button @click="hideAddForm" class="btn btn-outline-warning">Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ADD TASK PAGE -->
+
+
+  </div>
+<!-- MAIN PAGE -->
+
+
+
+
+<!-- LOGIN PAGE -->
+
+    <div class="login-page container" v-if="halaman == 'login'">
+      <div class="login-form">
+        <form @submit.prevent='login'>
+          <h2>LOGIN</h2><br>
+          <div class="mb-3">
+            <label for="login-email" class="form-label">Email address</label>
+            <input type="email" class="form-control" v-model="user.email" id="login-email" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          </div>
+          <div class="mb-3">
+            <label for="login-password" class="form-label">Password</label>
+            <input type="password" class="form-control" v-model="user.password" id="login-password">
+          </div>
+          <button type="submit" class="btn btn-primary login-btn" >Login</button>
+        </form>
+      </div>
+    </div>
+  
+
+
+  <!-- REGISTER PAGE -->
+  <div class="login-page container" v-if="halaman == 'register'">
+    <div class="login-form">
+      <form @submit.prevent='register'>
+        <h2>REGISTER</h2><br>
+        <div class="mb-3">
+          <label for="register-name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="register-name" v-model="user.name">
+        </div>
+        <div class="mb-3">
+          <label for="register-email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="register-email" aria-describedby="emailHelp" v-model="user.email">
+          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+          <label for="register-password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="register-password" v-model="user.password">
+        </div>
+        <button type="submit" class="btn btn-primary register-btn">REGISTER</button>
+      </form>
+    </div>
+  </div> 
+
+</div>
+
+<!-- CLOSING TAG #APP -->
+  
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

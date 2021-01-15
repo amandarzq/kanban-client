@@ -1,0 +1,232 @@
+@import url("https://fonts.googleapis.com/css?family=Oswald");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+* {
+  font-size: 15px;
+  font-family: "Quicksand", sans-serif;
+  transition: all 0.15s ease-in-out;
+}
+
+body,
+main {
+  background-color: #202020;
+}
+
+.container {
+  margin-top: 30px;
+  max-width: 95%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+nav {
+  background-color: black;
+  color: white;
+  display: flex;
+  padding: 1em;
+  height: 50px;
+}
+
+nav .navbar-brand {
+  font-weight: 700;
+  padding: 2px 10px;
+  color: white;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.navlink {
+  font-weight: 600;
+  color: #ff1ead;
+  padding: 2px 10px;
+  border: 1px solid #ff1ead;
+  font-family: "Quicksand", sans-serif;
+  margin-left: 20px;
+}
+.navlink:hover {
+  text-shadow: 0 0 50px white;
+  color: white;
+  border: 1px solid white;
+  box-shadow: 0 0 5px 0 white inset, 0 0 5px white;
+  border: 2px solid white;
+}
+
+.task-cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.kanban-page {
+  position: relative;
+  max-height: 600px;
+}
+
+.category-section {
+  max-width: 300px;
+  color: white;
+}
+.category-section:hover {
+  position: relative;
+  top: -6px;
+}
+
+.section-header {
+  background-color: black;
+  padding: 0.7rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.child-card {
+  margin-bottom: 5px;
+  background-color: #131212;
+}
+.child-card:hover {
+  position: relative;
+  left: -1px;
+  top: -1px;
+  background-color: #0a0a0a;
+  box-shadow: 0 0 0 1px #1b1b1b;
+}
+.child-card:hover .actions {
+  display: block;
+  display: flex;
+  justify-content: center;
+}
+.child-card:hover .actions a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem;
+}
+.child-card:hover .actions a.edit:hover {
+  color: #f0fa9a;
+  text-shadow: 0 0 5px #f1ffcb;
+}
+.child-card:hover .actions a.del:hover {
+  color: #f89494;
+  text-shadow: 0 0 5px #800202;
+}
+.child-card .actions {
+  display: none;
+}
+
+.backlog .section-header {
+  color: #faf1f7;
+}
+
+.todo .section-header {
+  color: #fab5e1;
+}
+
+.done .section-header {
+  color: #fa79cb;
+}
+
+.completed .section-header {
+  color: #ff00a2;
+}
+
+h3 {
+  margin-top: 5px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-family: "Oswald", sans-serif;
+  text-align: center;
+}
+
+.user-name {
+  color: gray;
+}
+
+.child-card p {
+  margin: 5px;
+  font-size: 0.9rem;
+}
+.child-card .updated-at {
+  font-size: 0.8rem;
+}
+
+.important h3 {
+  color: #adf5ff;
+  text-shadow: 0 0 5px #06d4f8;
+}
+
+.urgent h3 {
+  color: #ffade1;
+  text-shadow: 0 0 5px #f8069f;
+}
+
+.actions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.login-form,
+.add-task-page,
+.editContainer {
+  width: 50%;
+  margin: 50px auto;
+  color: white;
+  background-color: #161616;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 3px 3px #1d1c1c;
+}
+
+.login-btn,
+.register-btn {
+  background-color: #161616;
+  border: 3px solid #f8069f;
+  border-radius: 50px;
+  transition: all 0.15s ease-in-out;
+  width: 180px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 600;
+  align-self: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  display: inline-block;
+}
+.login-btn:hover,
+.register-btn:hover {
+  box-shadow: 0 0 10px 0 #f8069f inset, 0 0 20px 2px #f8069f;
+  border: 3px solid #f8069f;
+  background-color: #161616;
+  text-shadow: 0 0 5px white;
+}
+
+.btn {
+  margin-right: 10px;
+}
+
+.modal-content {
+  border: none;
+}
+
+.add-task-page,
+.editContainer {
+  width: 300px;
+}
+
+/*# sourceMappingURL=style.css.map */

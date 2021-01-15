@@ -1,0 +1,261 @@
+@import url("https://fonts.googleapis.com/css?family=Oswald");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+* {
+  font-size: 15px;
+  font-family: "Quicksand", sans-serif;
+  transition: all 0.15s ease-in-out;
+}
+body,
+main {
+  background-color: rgb(32, 32, 32);
+}
+.container {
+  margin-top: 30px;
+  max-width: 95%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+nav {
+  background-color: black;
+  color: white;
+  display: flex;
+  padding: 1em;
+  height: 50px;
+}
+
+nav {
+  .navbar-brand {
+    font-weight: 700;
+    padding: 2px 10px;
+    color: white;
+  }
+}
+
+nav {
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.navlink {
+  font-weight: 600;
+  color: #ff1ead;
+  padding: 2px 10px;
+  border: 1px solid #ff1ead;
+  font-family: "Quicksand", sans-serif;
+  margin-left: 20px;
+  &:hover {
+    text-shadow: 0 0 50px white;
+    color: white;
+    border: 1px solid white;
+    box-shadow: 0 0 5px 0 white inset, 0 0 5px white;
+    border: 2px solid white;
+  }
+}
+
+// ==================== MAIN PAGE
+
+.task-cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.task-cards {
+  position: relative;
+  max-height: 500px;
+}
+
+.category-section {
+  width: 300px;
+  color: white;
+  &:hover {
+    position: relative;
+    top: -6px;
+  }
+}
+
+.section-header {
+  width: 300px;
+  background-color: black;
+  padding: 0.7rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.child-card {
+  margin-bottom: 5px;
+  width: 300px;
+  background-color: rgb(19, 18, 18);
+  &:hover {
+    position: relative;
+    left: -1px;
+    top: -1px;
+    background-color: rgb(10, 10, 10);
+    box-shadow: 0 0 0 1px rgb(27, 27, 27);
+    .actions {
+      display: block;
+      display: flex;
+      justify-content: center;
+      a {
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem;
+      }
+      a.edit:hover {
+        color: #f0fa9a;
+        text-shadow: 0 0 5px #f1ffcb;
+      }
+      a.del:hover {
+        color: #f89494;
+        text-shadow: 0 0 5px #800202;
+      }
+    }
+  }
+  .actions {
+    display: none;
+  }
+}
+
+.backlog {
+  .section-header {
+    color: #faf1f7;
+  }
+}
+.todo {
+  .section-header {
+    color: #fab5e1;
+  }
+}
+.done {
+  .section-header {
+    color: #fa79cb;
+  }
+}
+.completed {
+  .section-header {
+    color: #ff00a2;
+  }
+}
+
+h3 {
+  margin-top: 5px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-family: "Oswald", sans-serif;
+  text-align: center;
+}
+
+.user-name {
+  color: gray;
+}
+.child-card {
+  p {
+    margin: 5px;
+    font-size: 0.9rem;
+  }
+  .updated-at {
+    font-size: 0.8rem;
+    color: gray;
+  }
+  .card-user-name {
+    font-weight: 500;
+  }
+}
+
+.important {
+  h3 {
+    color: #adf5ff;
+    text-shadow: 0 0 5px #06d4f8;
+  }
+}
+.urgent {
+  h3 {
+    color: #ffade1;
+    text-shadow: 0 0 5px #f8069f;
+  }
+}
+
+.actions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+// ==================== LOGIN & REGISTER PAGE
+.login-form,
+.add-task-page,
+.editContainer {
+  width: 50%;
+  margin: 50px auto;
+  color: white;
+  background-color: rgb(22, 22, 22);
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 3px 3px rgb(29, 28, 28);
+}
+
+.login-btn,
+.register-btn {
+  background-color: rgb(22, 22, 22);
+  border: 3px solid #f8069f;
+  border-radius: 50px;
+  transition: all 0.15s ease-in-out;
+  width: 180px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 600;
+  align-self: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  display: inline-block;
+  &:hover {
+    box-shadow: 0 0 10px 0 #f8069f inset, 0 0 20px 2px #f8069f;
+    border: 3px solid #f8069f;
+    background-color: rgb(22, 22, 22);
+    text-shadow: 0 0 5px white;
+  }
+}
+
+// ==================== ADD & EDIT FORM
+
+.btn {
+  margin-right: 10px;
+}
+
+.modal-content {
+  border: none;
+}
+.add-task-page,
+.editContainer {
+  width: 300px;
+}
+.black {
+  width: 100px;
+}
+.loginbuttons {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  button {
+    margin-right: 20px;
+  }
+}
